@@ -24,7 +24,8 @@ else
     clear
     echo ""
     echo -e "\033[0;32m█▀█ █░█ █▀ ▀█▀ █▄█  █▀▄▀█ ▄▀█ █▄░█ ▄▀█ █▀▀ █▀▀ █▀█
-                       █▀▄ █▄█ ▄█ ░█░ ░█░  █░▀░█ █▀█ █░▀█ █▀█ █▄█ ██▄ █▀▄ By:@𝗨𝗟𝗘𝗞𝗕𝗥 Edi:@𝗝𝗘𝗙𝗙𝗦𝗦𝗛"
+    █▀▄ █▄█ ▄█ ░█░ ░█░  █░▀░█ █▀█ █░▀█ █▀█ █▄█ ██▄ █▀▄ 
+    By:@𝗨𝗟𝗘𝗞𝗕𝗥 Edi:@𝗝𝗘𝗙𝗙𝗦𝗦𝗛"
     echo -e " "
     show_progress "Atualizando repositorios..."
     export DEBIAN_FRONTEND=noninteractive
