@@ -118,5 +118,11 @@ else
     increment_step
 
     # ---->>>> Instalação finalizada :)
-    echo "Instalação concluída com sucesso. Digite 'rustyproxy' para acessar o menu."
+    clear
+echo -e "\033[1;37m════════════════════════════════════════════════════\033[0m"
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "SEJA MUITO BEM VINDO (A)" ; tput sgr0
+echo -e "\033[1;37m════════════════════════════════════════════════════\033[0m"
+echo ""
+echo -e "                  \033[1;31m ⚠️ ATENÇÃO ⚠️\033[0m"
+echo -e "                 \033[1;33mPARA ACESSAR O MENU DIGITE 'rustyproxy' !\033[0m"
 fi
