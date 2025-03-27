@@ -124,7 +124,6 @@ show_menu() {
             ;;
         0)
             exit 0
-			menu
             ;;
         *)
             echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
