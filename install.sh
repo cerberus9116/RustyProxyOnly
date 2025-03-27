@@ -22,6 +22,8 @@ if [ "$EUID" -ne 0 ]; then
     error_exit "EXECUTE COMO ROOT"
 else
     clear
+    echo -e "\033[0;32mℝ𝕌𝕊𝕋𝕐 ℙℝ𝕆𝕏𝕐 𝕄𝔸ℕ𝔸𝔾𝔼ℝ By:@UlekBR "
+    echo -e " "
     show_progress "Atualizando repositorios..."
     export DEBIAN_FRONTEND=noninteractive
     apt update -y > /dev/null 2>&1 || error_exit "Falha ao atualizar os repositorios"
