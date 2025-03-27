@@ -77,7 +77,7 @@ del_proxy_port() {
 show_menu() {
     clear
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-    echo -e "\E[44;1;37m                 ⚒ RUSTY PROXT MANAGER ⚒                    \E[0m"
+    echo -e "\E[44;1;37m                   ⚒ RUSTY PROXT MANAGER ⚒                   \E[0m"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     
     # Verifica se há portas ativas
@@ -92,12 +92,12 @@ show_menu() {
     fi
 
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-    printf "| %-45s|\n" "1 - ABRIR PORTAS"
-    printf "| %-45s|\n" "2 - FECHAR PORTAS"
-    printf "| %-45s|\n" "0 - VOLTA AO MENU"
+    echo -e "\033[1;31m[\033[1;36m01\033[1;31m] \033[1;34m◉ \033[1;33mABRIR PORTAS \033[1;31m"
+    echo -e "\033[1;36m02\033[1;31m] \033[1;34m◉ \033[1;33FECHAR PORTAS \033[1;31m"
+    echo -e "\033[1;36m03\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mREMOVER LOGIN \033[1;31m"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo
-    read -p "O QUE DESEJA FAZER ? " option
+    echo -ne "\033[1;32mOQUE DESEJA FAZER \033[1;33m?\033[1;31m?\033[1;37m : " option
 
     case $option in
         1)
@@ -118,13 +118,13 @@ show_menu() {
             while ! [[ $port =~ ^[0-9]+$ ]]; do
                 echo "DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
-            done
 			clear
             del_proxy_port $port
             read -p "> PORTA DESATIVADA. PRESSIONE QUALLQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         0)
             exit 0
+			menu
             ;;
         *)
             echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
