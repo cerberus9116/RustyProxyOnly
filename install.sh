@@ -23,8 +23,9 @@ if [ "$EUID" -ne 0 ]; then
 else
     clear
     echo ""
-    echo -e "\033[0;32m  █▀█ █░█ █▀ ▀█▀ █▄█  █▀▄▀█ ▄▀█ █▄░█ ▄▀█ █▀▀ █▀▀ █▀█
+    echo -e "\033[0;32m    █▀█ █░█ █▀ ▀█▀ █▄█  █▀▄▀█ ▄▀█ █▄░█ ▄▀█ █▀▀ █▀▀ █▀█
     █▀▄ █▄█ ▄█ ░█░ ░█░  █░▀░█ █▀█ █░▀█ █▀█ █▄█ ██▄ █▀▄ 
+    echo -e ""
     By:@𝗨𝗟𝗘𝗞𝗕𝗥 Edi:@𝗝𝗘𝗙𝗙𝗦𝗦𝗛"
     echo -e " "
     show_progress "Atualizando repositorios..."
@@ -124,5 +125,7 @@ tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "SEJA MUITO BEM
 echo -e "\033[1;37m════════════════════════════════════════════════════\033[0m"
 echo ""
 echo -e "                  \033[1;31m ⚠️ ATENÇÃO ⚠️\033[0m"
-echo -e "      \033[1;33mPARA ACESSAR O MENU DIGITE 'rustyproxy' !\033[0m"
+echo -e " "
+echo -e "      \033[1;33mPARA ACESSAR O MENU DIGITE 'rustyproxy'\033[0m"
+echo -e " "
 fi
