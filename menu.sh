@@ -82,22 +82,22 @@ show_menu() {
     
     # Verifica se há portas ativas
     if [ ! -s "$PORTS_FILE" ]; then
-        printf " PORTAS ATIVAS(s): %-34s\n" "NENHUMA"
+        printf " PORTA ATIVA(s): %-34s\n" "NENHUMA"
     else
         active_ports=""
         while read -r port; do
             active_ports+=" $port"
         done < "$PORTS_FILE"
-        printf "| Portas(s):%-35s|\n" "$active_ports"
+        printf " PORTA(s):%-35s\n" "$active_ports"
     fi
 
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-    echo -e "\033[1;31m[\033[1;36m01\033[1;31m] \033[1;34m◉ \033[1;33mABRIR PORTAS \033[1;31m"
-    echo -e "\033[1;36m02\033[1;31m] \033[1;34m◉ \033[1;33FECHAR PORTAS \033[1;31m"
-    echo -e "\033[1;36m03\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mREMOVER LOGIN \033[1;31m"
+    echo -e "\033[1;31m[\033[1;36m01\033[1;31m] \033[1;34m◉ \033[1;33mABRIR PORTAS \033[1;31m
+    [\033[1;36m02\033[1;31m] \033[1;34m◉ \033[1;33mFECHAR PORTAS \033[1;31m
+    [\033[1;36m03\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mREMOVER LOGIN \033[1;31m"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo
-    echo -ne "\033[1;32mOQUE DESEJA FAZER \033[1;33m?\033[1;31m?\033[1;37m : " option
+    echo -ne "\033[1;32mOQUE DESEJA FAZER \033[1;33m?\033[1;31m?\033[1;37m :"
 
     case $option in
         1)
@@ -124,6 +124,7 @@ show_menu() {
             ;;
         0)
             exit 0
+			menu
             ;;
         *)
             echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
