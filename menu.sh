@@ -76,14 +76,13 @@ del_proxy_port() {
 # Função para exibir o menu formatado
 show_menu() {
     clear
-    echo ""
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-    echo -e "\E[44;1;37m            ⚒ Rusty Proxy Manager By: @UlekBR ⚒                \E[0m"
+    echo -e "\E[44;1;37m                 ⚒ RUSTY PROXT MANAGER ⚒                    \E[0m"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     
     # Verifica se há portas ativas
     if [ ! -s "$PORTS_FILE" ]; then
-        printf "| Portas(s): %-34s|\n" "nenhuma"
+        printf " PORTAS ATIVAS(s): %-34s\n" "NENHUMA"
     else
         active_ports=""
         while read -r port; do
@@ -93,9 +92,9 @@ show_menu() {
     fi
 
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-    printf "| %-45s|\n" "1 - Abrir Porta"
-    printf "| %-45s|\n" "2 - Fechar Porta"
-    printf "| %-45s|\n" "0 - Voltar ao menu"
+    printf "| %-45s|\n" "1 - ABRIR PORTAS"
+    printf "| %-45s|\n" "2 - FECHAR PORTAS"
+    printf "| %-45s|\n" "0 - VOLTA AO MENU"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo
     read -p "O QUE DESEJA FAZER ? " option
@@ -103,30 +102,32 @@ show_menu() {
     case $option in
         1)
 		    clear
-            read -p "Digite a porta: " port
+            read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "Digite uma porta válida."
-                read -p "Digite a porta: " port
+                echo "DIGITE UMA PORTA VÁLIDA."
+                read -p "DIGITE A PORTA: " port
             done
-            read -p "Digite o status de conexão (deixe vazio para o padrão): " status
+            read -p "DIGITE O STATUS DE CONEXAO (deixe vazio para o padrão): " status
             add_proxy_port $port "$status"
-            read -p "> Porta ativada com sucesso. Pressione qualquer tecla para voltar ao menu." dummy
+			clear
+            read -p "◉ PORTA ATIVADA COM SUCESSO. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         2)
 		    clear
-            read -p "Digite a porta: " port
+            read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "Digite uma porta válida."
-                read -p "Digite a porta: " port
+                echo "DIGITE UMA PORTA VÁLIDA."
+                read -p "DIGITE A PORTA: " port
             done
+			clear
             del_proxy_port $port
-            read -p "> Porta desativada com sucesso. Pressione qualquer tecla para voltar ao menu." dummy
+            read -p "> PORTA DESATIVADA. PRESSIONE QUALLQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         0)
             exit 0
             ;;
         *)
-            echo "Opção inválida. Pressione qualquer tecla para voltar ao menu."
+            echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
             read -n 1 dummy
             ;;
     esac
