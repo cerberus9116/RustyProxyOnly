@@ -22,7 +22,9 @@ if [ "$EUID" -ne 0 ]; then
     error_exit "EXECUTE COMO ROOT"
 else
     clear
-    echo -e "\033[0;32mℝ𝕌𝕊𝕋𝕐 ℙℝ𝕆𝕏𝕐 𝕄𝔸ℕ𝔸𝔾𝔼ℝ By:@UlekBR "
+    echo ""
+    echo -e "\033[0;32m█▀█ █░█ █▀ ▀█▀ █▄█  █▀▄▀█ ▄▀█ █▄░█ ▄▀█ █▀▀ █▀▀ █▀█
+                       █▀▄ █▄█ ▄█ ░█░ ░█░  █░▀░█ █▀█ █░▀█ █▀█ █▄█ ██▄ █▀▄ By:@𝗨𝗟𝗘𝗞𝗕𝗥 Edi:@𝗝𝗘𝗙𝗙𝗦𝗦𝗛"
     echo -e " "
     show_progress "Atualizando repositorios..."
     export DEBIAN_FRONTEND=noninteractive
