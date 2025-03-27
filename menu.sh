@@ -76,10 +76,10 @@ del_proxy_port() {
 # Função para exibir o menu formatado
 show_menu() {
     clear
-    echo "================= @RustyManager ================"
-    echo "------------------------------------------------"
-    printf "|                  %-28s|\n" "RUSTY PROXY"
-    echo "------------------------------------------------"
+    echo ""
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+    echo -e "\E[44;1;37m            ⚒ Rusty Proxy Manager By: @UlekBR ⚒                \E[0m"
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     
     # Verifica se há portas ativas
     if [ ! -s "$PORTS_FILE" ]; then
@@ -92,16 +92,17 @@ show_menu() {
         printf "| Portas(s):%-35s|\n" "$active_ports"
     fi
 
-    echo "------------------------------------------------"
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     printf "| %-45s|\n" "1 - Abrir Porta"
     printf "| %-45s|\n" "2 - Fechar Porta"
     printf "| %-45s|\n" "0 - Voltar ao menu"
-    echo "------------------------------------------------"
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo
-    read -p " --> Selecione uma opção: " option
+    read -p "O QUE DESEJA FAZER ? " option
 
     case $option in
         1)
+		    clear
             read -p "Digite a porta: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
                 echo "Digite uma porta válida."
@@ -112,6 +113,7 @@ show_menu() {
             read -p "> Porta ativada com sucesso. Pressione qualquer tecla para voltar ao menu." dummy
             ;;
         2)
+		    clear
             read -p "Digite a porta: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
                 echo "Digite uma porta válida."
