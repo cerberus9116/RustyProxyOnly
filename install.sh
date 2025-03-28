@@ -124,7 +124,7 @@ echo - e
 echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
 echo -e "\E[44;1;37m            INSTALAÇÃO FINALIZADA COM SUCESSO                  \E[0m"
 echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-sleep 5
+sleep 4
 clear
 echo -e "\033[1;37m════════════════════════════════════════════════════\033[0m"
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "SEJA MUITO BEM VINDO (A)" ; tput sgr0
