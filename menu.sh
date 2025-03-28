@@ -142,11 +142,13 @@ show_menu() {
 	    clear
             read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
-		3)
-          clear
+	3)
+           clear
             uninstall_rustyproxy
+	    clear
             read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
-            exit 0		
+	    exit 0
+           ;;
         0)
             exit 0
             ;;
