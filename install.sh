@@ -122,7 +122,7 @@ else
 clear
 echo -e " "
 echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-echo -e "\E[44;1;37m            INSTALAÇÃO FINALIZADA COM SUCESSO                  \E[0m"
+echo -e "\E[44;1;37m            INSTALAÇÃO FINALIZADA COM SUCESSO                 \E[0m"
 echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
 sleep 4
 clear
