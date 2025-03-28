@@ -1,148 +1,130 @@
 #!/bin/bash
-# Script de Instalação Seguro para RustyProxy (v2.1 - Otimizado)
+# rustyproxy Installer
 
-# Configurações
-TEMP_DIR=$(mktemp -d)
-LOG_FILE="/var/log/rustyproxy_install.log"
-INSTALL_DIR="/opt/rustyproxy"
-REPO_URL="https://github.com/WorldSsh/RustyProxyOnly.git"
-RUSTUP_URL="https://sh.rustup.rs"
-RUSTUP_SHA256="a2806d9c2ce34306d4d5a9b80169f1deb1f9544d07b1f233846f3c81786a0d38"  # Atualizar conforme necessário
+TOTAL_STEPS=9
+CURRENT_STEP=0
 
-# Cores para mensagens
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-BLUE=$(tput setaf 4)
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
+show_progress() {
+    PERCENT=$((CURRENT_STEP * 100 / TOTAL_STEPS))
+    echo "Progresso: [${PERCENT}%] - $1"
+}
 
-# Funções auxiliares
 error_exit() {
-    echo -e "\n${RED}${BOLD}ERRO:${RESET} $1"
-    echo "Consulte o log em: ${YELLOW}${LOG_FILE}${RESET}" >&2
+    echo -e "\nErro: $1"
     exit 1
 }
 
-log_step() {
-    echo -e "\n${BLUE}${BOLD}>>> $1${RESET}"
-    echo -e "$(date): $1" >> "$LOG_FILE"
+increment_step() {
+    CURRENT_STEP=$((CURRENT_STEP + 1))
 }
 
-check_root() {
-    if [ "$EUID" -ne 0 ]; then
-        error_exit "Este script precisa ser executado como root!"
-    fi
-}
-
-cleanup() {
-    rm -rf "$TEMP_DIR"
-    log_step "Arquivos temporários limpos."
-}
-
-install_dependencies() {
-    log_step "Instalando dependências do sistema..."
+if [ "$EUID" -ne 0 ]; then
+    error_exit "EXECUTE COMO ROOT"
+else
+    clear
+    echo ""
+echo -e "\033[0;34m           ╦═╗╦ ╦╔═╗╔╦╗╦ ╦  ╔═╗╦═╗╔═╗═╗ ╦╦ ╦                          "
+echo -e "\033[0;37m           ╠╦╝║ ║╚═╗ ║ ╚╦╝  ╠═╝╠╦╝║ ║╔╩╦╝╚╦╝                          "
+echo -e "\033[0;34m           ╩╚═╚═╝╚═╝ ╩  ╩   ╩  ╩╚═╚═╝╩ ╚═ ╩  \033[0;37m2025           "
+    echo -e " "
+    $(tput setaf 2)              DEV:@𝗨𝗟𝗘𝗞𝗕𝗥  ED.:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇 \033[0m              
+    echo -e " "
+    show_progress "ATUALIZANDO REPOSITÓRIO..."
     export DEBIAN_FRONTEND=noninteractive
+    apt update -y > /dev/null 2>&1 || error_exit "Falha ao atualizar os repositorios"
+    increment_step
 
-    apt-get update >> "$LOG_FILE" 2>&1 || error_exit "Não foi possível atualizar os repositórios."
+    # ---->>>> Verificação do sistema
+    show_progress "VERIFICANDO SISTEMA..."
+    if ! command -v lsb_release &> /dev/null; then
+        apt install lsb-release -y > /dev/null 2>&1 || error_exit "Falha ao instalar lsb-release"
+    fi
+    increment_step
 
-    dependencies=(
-        lsb-release
-        curl
-        build-essential
-        git
-        pkg-config
-        libssl-dev
-    )
+    # ---->>>> Verificação do sistema
+    OS_NAME=$(lsb_release -is)
+    VERSION=$(lsb_release -rs)
 
-    apt-get install -y "${dependencies[@]}" >> "$LOG_FILE" 2>&1 || error_exit "Erro na instalação de dependências."
-}
-
-verify_system() {
-    log_step "Verificando compatibilidade do sistema..."
-
-    os_info=$(lsb_release -is 2>/dev/null || error_exit "lsb_release não encontrado.")
-    version_info=$(lsb_release -rs)
-
-    case "$os_info" in
+    case $OS_NAME in
         Ubuntu)
-            [[ "$version_info" =~ ^(18|20|22|24)\. ]] || error_exit "Versão do Ubuntu não suportada: $version_info."
+            case $VERSION in
+                24.*|22.*|20.*|18.*)
+                    show_progress "SISTEMA UBUNTU SUPORTADO, CONTINUANDO..."
+                    ;;
+                *)
+                    error_exit "VERSÃO DO UBUNTU. USE O UBUNTU 18, 20, 22 ou 24."
+                    ;;
+            esac
             ;;
         Debian)
-            [[ "$version_info" =~ ^(9|10|11|12) ]] || error_exit "Versão do Debian não suportada: $version_info."
+            case $VERSION in
+                12*|11*|10*|9*)
+                    show_progress "SISTEMA DEBIAN SUPORTADO, CONTINUANDO..."
+                    ;;
+                *)
+                    error_exit "VERSÃO DO UBUNTU. USE O DEBIAN 9, 10, 11 ou 12."
+                    ;;
+            esac
             ;;
         *)
-            error_exit "Sistema Operacional não suportado: $os_info."
+            error_exit "SISTEMA NÃO SUPORTADO. USE UBUNTU OU DEBIAN."
             ;;
     esac
-}
+    increment_step
 
-install_rust() {
-    log_step "Instalando Rust Toolchain..."
+    # ---->>>> Instalação de pacotes requisitos e atualização do sistema
+    show_progress "ATUALIZANDO O SISTEMA, AGUARDE..."
+    apt upgrade -y > /dev/null 2>&1 || error_exit "Falha ao atualizar o sistema"
+    apt-get install curl build-essential git -y > /dev/null 2>&1 || error_exit "Falha ao instalar pacotes"
+    increment_step
 
+    # ---->>>> Criando o diretório do script
+    show_progress "CRIANDO DIRETÓRIO..."
+    mkdir -p /opt/rustyproxy > /dev/null 2>&1
+    increment_step
+
+    # ---->>>> Instalar rust
+    show_progress "INSTALANDO RUST..."
     if ! command -v rustc &> /dev/null; then
-        curl --proto '=https' --tlsv1.2 -sSf "$RUSTUP_URL" -o "$TEMP_DIR/rustup.sh" || error_exit "Erro ao baixar Rustup."
-        echo "$RUSTUP_SHA256  $TEMP_DIR/rustup.sh" | sha256sum -c - >> "$LOG_FILE" 2>&1 || error_exit "Checksum inválido do Rustup."
-        sh "$TEMP_DIR/rustup.sh" -y --no-modify-path >> "$LOG_FILE" 2>&1 || error_exit "Erro na instalação do Rust."
-        source "/root/.cargo/env" || error_exit "Falha ao configurar o ambiente Rust."
-    else
-        log_step "Rust já está instalado."
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y > /dev/null 2>&1 || error_exit "Falha ao instalar Rust"
+        source "$HOME/.cargo/env"
     fi
-}
+    increment_step
 
-compile_rustyproxy() {
-    log_step "Compilando RustyProxy..."
+    # ---->>>> Instalar o RustyProxy
+    show_progress "COMPILANDO RUSTYPROXY, ISSO PODE LEVAR ALGUM TEMPO, AGUARDE..."
 
-    git clone --branch "main" "$REPO_URL" "$TEMP_DIR/RustyProxyOnly" >> "$LOG_FILE" 2>&1 || error_exit "Erro ao clonar repositório."
+    if [ -d "/root/RustyProxyOnly" ]; then
+        rm -rf /root/RustyProxyOnly
+    fi
 
-    mkdir -p "$INSTALL_DIR" || error_exit "Não foi possível criar o diretório de instalação."
 
-    (
-        cd "$TEMP_DIR/RustyProxyOnly/RustyProxy" || error_exit "Diretório do projeto não encontrado."
-        cargo build --release --jobs $(nproc) >> "$LOG_FILE" 2>&1 || error_exit "Erro na compilação."
-        mv ./target/release/RustyProxy "$INSTALL_DIR/proxy" || error_exit "Erro ao mover binário RustyProxy."
-        mv "$TEMP_DIR/RustyProxyOnly/menu.sh" "$INSTALL_DIR/menu" || error_exit "Erro ao mover script do menu."
-    )
-}
+    git clone --branch "main" https://github.com/WorldSsh/RustyProxyOnly.git /root/RustyProxyOnly > /dev/null 2>&1 || error_exit "Falha ao clonar rustyproxy"
+    mv /root/RustyProxyOnly/menu.sh /opt/rustyproxy/menu
+    cd /root/RustyProxyOnly/RustyProxy
+    cargo build --release --jobs $(nproc) > /dev/null 2>&1 || error_exit "Falha ao compilar rustyproxy"
+    mv ./target/release/RustyProxy /opt/rustyproxy/proxy
+    increment_step
 
-setup_permissions() {
-    log_step "Configurando permissões..."
+    # ---->>>> Configuração de permissões
+    show_progress "CONFIGURANDO PERMISSÕES..."
+    chmod +x /opt/rustyproxy/proxy
+    chmod +x /opt/rustyproxy/menu
+    ln -sf /opt/rustyproxy/menu /usr/local/bin/rustyproxy
+    increment_step
 
-    chmod -R 750 "$INSTALL_DIR" || error_exit "Erro ao ajustar permissões."
-    chown -R root:root "$INSTALL_DIR" || error_exit "Erro ao definir proprietário."
-    ln -sf "$INSTALL_DIR/menu" "/usr/local/bin/rustyproxy" || error_exit "Erro ao criar link simbólico."
-}
+    # ---->>>> Limpeza
+    show_progress "LIMPANDO DIRETÓRIOS TEMPORÁRIOS, AGUARDE..."
+    cd /root/
+    rm -rf /root/RustyProxyOnly/
+    increment_step
 
-show_success() {
-    clear
-    echo -e "\n${GREEN}${BOLD}Instalação concluída com sucesso!${RESET}"
-    echo -e "\nUse o comando: ${BOLD}rustyproxy${RESET} para executar."
-}
-
-uninstall() {
-    log_step "Desinstalando RustyProxy..."
-
-    rm -rf "$INSTALL_DIR" || error_exit "Erro ao remover diretório de instalação."
-    rm -f "/usr/local/bin/rustyproxy" || error_exit "Erro ao remover link simbólico."
-
-    echo -e "\n${GREEN}RustyProxy foi desinstalado com sucesso.${RESET}"
-}
-
-# Fluxo principal
-trap cleanup EXIT
-
-case "$1" in
-    --uninstall)
-        check_root
-        uninstall
-        ;;
-    *)
-        check_root
-        install_dependencies
-        verify_system
-        install_rust
-        compile_rustyproxy
-        setup_permissions
-        show_success
-        ;;
-esac
+    # ---->>>> Instalação finalizada :)
+clear
+echo -e " "
+echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+echo -e "\E[44;1;37m            INSTALAÇÃO FINALIZADA COM SUCESSO                 \E[0m"
+echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+echo -e " "
+echo -e "\033[1;31m \033[1;33mCOMANDO PARA ACESSAR O MENU: \033[1;32mrustyproxy\033[0m"
+fi
