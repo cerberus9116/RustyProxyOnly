@@ -97,7 +97,7 @@ show_menu() {
 [\033[1;36m00\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mVOLTAR AO MENU \033[1;31m"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo
-  read -p "O QUE DESEJA FAZER ?: " option
+  read -p "  O QUE DESEJA FAZER ?: " option
 
     case $option in
         1)
@@ -120,6 +120,7 @@ show_menu() {
                 read -p "DIGITE A PORTA: " port
 		done
             del_proxy_port $port
+	    clear
             read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         0)
