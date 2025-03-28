@@ -75,9 +75,9 @@ del_proxy_port() {
 
 # Função para desinstalar o RustyProxy
 uninstall_rustyproxy() {
-    echo "DESINSTALANDO RUSTYPROXY, AGUARDE..."
-   sleep 3
-   clear
+    echo "DESINSTALANDO RUSTY PROXY, AGUARDE..."
+    sleep 3
+    clear
 
 # Parar e remover todos os serviços
     if [ -s "$PORTS_FILE" ]; then
