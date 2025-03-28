@@ -90,6 +90,7 @@ uninstall_rustyproxy() {
     sudo rm -f "$PORTS_FILE"
 
     echo "RUSTY PROXY DESISTALADO COM SUCESSO."
+}
 
 # Função para exibir o menu formatado
 show_menu() {
@@ -120,43 +121,53 @@ show_menu() {
 
     case $option in
         1)
-            clear
+		    clear
             read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "[ERRO] DIGITE UMA PORTA VÁLIDA."
+                echo "DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
             done
             read -p "DIGITE O STATUS DE CONEXÃO (DEIXE VAZIO PARA PADRÃO): " status
             add_proxy_port $port "$status"
-           read -p "◉ PORTA ATIVADA COM SUCESSO. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
+			clear
+            read -p "◉ PORTA ATIVADA COM SUCESSO. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         2)
-            clear
+		    clear
             read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "[ERRO] DIGITE UMA PORTA VÁLIDA."
+                echo "DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
-            done
+		done
             del_proxy_port $port
+	    clear
             read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
-        3)
-            clear
+		3)
+          clear
             uninstall_rustyproxy
+			clear
             read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
             exit 0
-            ;;
+            ;;			
         0)
             exit 0
             ;;
         *)
-            echo "[ERRO] OPÇÃO INVÁLIDA."
-            read -p "PRESSIONE QUALQUER TC PARA VOLTAR AO MENU...." dummy
+            echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
+            read -n 1 dummy
             ;;
     esac
 }
+
+
 
 # Verificar se o arquivo de portas existe, caso contrário, criar
 if [ ! -f "$PORTS_FILE" ]; then
     sudo touch "$PORTS_FILE"
 fi
+
+# Loop do menu
+while true; do
+    show_menu
+done
