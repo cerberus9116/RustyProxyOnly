@@ -27,7 +27,7 @@ echo -e "\033[0;34m           ╦═╗╦ ╦╔═╗╔╦╗╦ ╦  ╔═�
 echo -e "\033[0;37m           ╠╦╝║ ║╚═╗ ║ ╚╦╝  ╠═╝╠╦╝║ ║╔╩╦╝╚╦╝                          "
 echo -e "\033[0;34m           ╩╚═╚═╝╚═╝ ╩  ╩   ╩  ╩╚═╚═╝╩ ╚═ ╩  \033[0;37m2025           "
     echo -e " "
-    $ tput setaf 1; echo COR VERMELHA; tput sgr0              DEV:@𝗨𝗟𝗘𝗞𝗕𝗥  ED.:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇 \033[0m              
+    $ tput setaf 1; echo              DEV:@𝗨𝗟𝗘𝗞𝗕𝗥  ED.:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇;              
     echo -e " "
     show_progress "ATUALIZANDO REPOSITÓRIO..."
     export DEBIAN_FRONTEND=noninteractive
