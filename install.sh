@@ -78,7 +78,7 @@ else
     increment_step
 
     # ---->>>> Criando o diretório do script
-    show_progress "CRIANDO DIRETÓRIO /opt/rustyproxy..."
+    show_progress "CRIANDO DIRETÓRIO..."
     mkdir -p /opt/rustyproxy > /dev/null 2>&1
     increment_step
 
