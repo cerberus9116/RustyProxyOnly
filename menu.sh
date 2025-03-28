@@ -119,7 +119,7 @@ show_menu() {
     echo -e "\033[1;31m[\033[1;36m01\033[1;31m] \033[1;34m◉ \033[1;33mABRIR PORTAS \033[1;31m
 [\033[1;36m02\033[1;31m] \033[1;34m◉ \033[1;33mFECHAR PORTAS \033[1;31m
 [\033[1;36m03\033[1;31m] \033[1;34m◉ \033[1;33mDESINSTALAR RUSTYPROXY \033[1;31m
-[\033[1;36m00\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mVOLTAR AO MENU \033[1;31m"
+[\033[1;36m00\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mSAIR DO MENU \033[1;31m"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo
   read -p "  O QUE DESEJA FAZER ?: " option
@@ -157,6 +157,7 @@ show_menu() {
             ;;			
         0)
             exit 0
+	    clear
             ;;
         *)
             echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
