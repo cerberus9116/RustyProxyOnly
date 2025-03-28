@@ -2,7 +2,7 @@
 ![photo_5130016699528097587_y](https://github.com/user-attachments/assets/1f756d07-8923-460a-858f-7d581db247a1)
 
 
-O RustyProxy é um script simples e otimizado configurável para servidores de proxy que suporta múltiplos protocolos, conhecido como "MultProtocols".
+O RustyProxy é um script simples e otimizado, configurável para servidores de proxy que suporta múltiplos protocolos, conhecido como MultProtocols.
 Ele foi projetado para fornecer uma variedade de opções para diferentes tipos de conexão e cenários de uso. Aqui estão os protocolos incorporados:
 - **Websocket**
 - **Security**
