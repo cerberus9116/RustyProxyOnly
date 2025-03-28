@@ -106,30 +106,27 @@ echo -e "\033[0;34m           ╩╚═╚═╝╚═╝ ╩  ╩   ╩  ╩╚
     mv ./target/release/RustyProxy /opt/rustyproxy/proxy
     increment_step
 
-    # ---->>>> Configuração de permissões
+    #Configuração de permissões
     show_progress "CONFIGURANDO PERMISSÕES..."
     chmod +x /opt/rustyproxy/proxy
     chmod +x /opt/rustyproxy/menu
     ln -sf /opt/rustyproxy/menu /usr/local/bin/rustyproxy
     increment_step
 
-    # ---->>>> Limpeza
+    #Limpeza
     show_progress "LIMPANDO DIRETÓRIOS TEMPORÁRIOS, AGUARDE..."
     cd /root/
     rm -rf /root/RustyProxyOnly/
     increment_step
 
-    # ---->>>> Instalação finalizada :)
+    #Instalação finalizada :)
 clear
 echo -e " "
-echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
-echo -e "\E[44;1;37m            INSTALAÇÃO FINALIZADA COM SUCESSO                 \E[0m"
-echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+$ tput setaf 7; echo COR BRANCA; tput sgr0--------------------------------------------------------------
+$ tput setaf 4; tput setab 7 ; echo COR AZUL; tput sgr0            INSTALAÇÃO FINALIZADA COM SUCESSO                 
+$ tput setaf 7; echo COR BRANCA; tput sgr0--------------------------------------------------------------
 sleep 3
 clear
-echo -e "\033[1;37m════════════════════════════════════════════════════\033[0m"
-tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "SEJA MUITO BEM VINDO (A)" ; tput sgr0
-echo -e "\033[1;37m════════════════════════════════════════════════════\033[0m"
 echo -e " "
 echo -e "\033[1;31m \033[1;33mCOMANDO PRINCIPAL: \033[1;32mrustyproxy\033[0m"
 echo -e " "
