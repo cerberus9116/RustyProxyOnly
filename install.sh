@@ -1,5 +1,5 @@
 #!/bin/bash
-# rustyproxy Installer
+# Script de Instalação Seguro para RustyProxy 
 
 TOTAL_STEPS=9
 CURRENT_STEP=0
