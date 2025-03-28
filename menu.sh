@@ -118,13 +118,12 @@ show_menu() {
             while ! [[ $port =~ ^[0-9]+$ ]]; do
                 echo "DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
-		clear
+		done
             del_proxy_port $port
             read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         0)
             exit 0
-			menu
             ;;
         *)
             echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
