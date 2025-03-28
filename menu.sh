@@ -159,14 +159,7 @@ show_menu() {
     esac
 }
 
-
-
 # Verificar se o arquivo de portas existe, caso contrário, criar
 if [ ! -f "$PORTS_FILE" ]; then
     sudo touch "$PORTS_FILE"
 fi
-
-# Loop do menu
-while true; do
-    show_menu
-done
