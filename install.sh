@@ -24,9 +24,9 @@ else
     clear
     echo ""
     echo -e "\033[0;32m     █▀█ █░█ █▀ ▀█▀ █▄█  █▀█ █▀█ █▀█ ▀▄▀ █▄█
-    █▀▄ █▄█ ▄█ ░█░ ░█░  █▀▀ █▀▄ █▄█ █░█ ░█░"
+     █▀▄ █▄█ ▄█ ░█░ ░█░  █▀▀ █▀▄ █▄█ █░█ ░█░"
     echo -e " "
-    echo -e "            DEV:@𝗨𝗟𝗘𝗞𝗕𝗥   EDIÇÃO:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇"
+    echo -e "         DEV:@𝗨𝗟𝗘𝗞𝗕𝗥   EDIÇÃO:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇"
     echo -e " "
     show_progress "ATUALIZANDO REPOSITÓRIO..."
     export DEBIAN_FRONTEND=noninteractive
