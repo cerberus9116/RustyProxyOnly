@@ -1,5 +1,5 @@
 #!/bin/bash
-# rustyproxy Installer
+# Instalação Rusty Proxy
 
 TOTAL_STEPS=9
 CURRENT_STEP=0
