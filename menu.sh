@@ -144,9 +144,9 @@ show_menu() {
             ;;
 	3)
            clear
-            uninstall_rustyproxy
-	    clear
-            read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
+           uninstall_rustyproxy
+	   clear
+           read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
 	    exit 0
            ;;
         0)
