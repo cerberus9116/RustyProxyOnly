@@ -121,7 +121,7 @@ else
     # ---->>>> Instalação finalizada :)
 clear
 echo -e "\033[1;33m • \033[1;32mINSTALAÇÃO FINALIZADA COM SUCESSO\033[1;33m • \033[0m"
-sleep 2
+sleep 3
 clear
 echo -e "\033[1;37m════════════════════════════════════════════════════\033[0m"
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "SEJA MUITO BEM VINDO (A)" ; tput sgr0
