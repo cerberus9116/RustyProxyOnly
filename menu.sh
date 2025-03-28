@@ -89,7 +89,8 @@ uninstall_rustyproxy() {
     sudo rm -rf /opt/rustyproxy
     sudo rm -f "$PORTS_FILE"
 
-    echo "RUSTY PROXY DESISTALADO COM SUCESSO."
+    echo -e "\033[31mRUSTY PROXY DESINSTALADO COM SUCESSO."
+    sleep 2
 }
 
 # Função para exibir o menu formatado
@@ -140,13 +141,12 @@ show_menu() {
                 read -p "DIGITE A PORTA: " port
 		done
             del_proxy_port $port
-	    clear
             read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
+	    clear
             ;;
 		3)
           clear
             uninstall_rustyproxy
-	    clear
             read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
 	    clear
             exit 0
