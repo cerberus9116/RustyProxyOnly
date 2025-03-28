@@ -76,7 +76,7 @@ del_proxy_port() {
 # Função para desinstalar o RustyProxy
 uninstall_rustyproxy() {
     echo "DESINSTALANDO RUSTY PROXY, AGUARDE..."
-    sleep 3
+    sleep 4
     clear
 
 # Parar e remover todos os serviços
@@ -90,8 +90,10 @@ uninstall_rustyproxy() {
     sudo rm -rf /opt/rustyproxy
     sudo rm -f "$PORTS_FILE"
 
-    echo -e "\033[31mRUSTY PROXY DESINSTALADO COM SUCESSO."
-    sleep 2
+    echo -e "\033[0;34m---------------------------------------------------------\033[0m"
+    echo -e "\E[44;1;37m        RUSTY PROXY DESINSTALADO COM SUCESSO.             \E[0m"
+    echo -e "\033[0;34m---------------------------------------------------------\033[0m"
+    sleep 3
     clear
 }
 
