@@ -6,13 +6,15 @@ PORTS_FILE="/opt/rustyproxy/ports"
 is_port_in_use() {
     local port=$1
     
-    if netstat -tuln 2>/dev/null | grep -q ":$port\b" || \
-       ss -tuln 2>/dev/null | grep -q ":$port\b"; then
-        return 0
+    if netstat -tuln 2>/dev/null | grep -q ":[0-9]*$port\b"; then
+        return 0  
+    elif ss -tuln 2>/dev/null | grep -q ":[0-9]*$port\b"; then
+        return 0  
     else
-        return 1
+        return 1 
     fi
 }
+
 
 # Função para abrir uma porta de proxy
 add_proxy_port() {
@@ -20,7 +22,7 @@ add_proxy_port() {
     local status=${2:-"@RustyProxy"}
 
     if is_port_in_use $port; then
-        echo "[ERRO] A porta $port já está em uso."
+        echo "A porta $port já está em uso."
         return
     fi
 
@@ -52,105 +54,110 @@ WantedBy=multi-user.target"
     sudo systemctl enable "proxy${port}.service"
     sudo systemctl start "proxy${port}.service"
 
-    if ! grep -qx "$port" "$PORTS_FILE"; then
-        echo $port >> "$PORTS_FILE"
-    fi
-    echo "[SUCESSO] Porta $port aberta com sucesso."
+    # Salvar a porta no arquivo
+    echo $port >> "$PORTS_FILE"
+    echo "Porta $port ABERTA COM SUCESSO."
 }
 
 # Função para fechar uma porta de proxy
 del_proxy_port() {
     local port=$1
 
-    sudo systemctl disable "proxy${port}.service" --now
+    sudo systemctl disable "proxy${port}.service"
+    sudo systemctl stop "proxy${port}.service"
     sudo rm -f "/etc/systemd/system/proxy${port}.service"
     sudo systemctl daemon-reload
 
+    # Remover a porta do arquivo
     sed -i "/^$port$/d" "$PORTS_FILE"
-    echo "[SUCESSO] Porta $port fechada com sucesso."
+    echo "Porta $port FECHADA COM SUCESSO."
 }
 
 # Função para desinstalar o RustyProxy
 uninstall_rustyproxy() {
     echo "[INFO] Desinstalando o RustyProxy..."
 
-    # Parar e remover todos os serviços
+
+# Parar e remover todos os serviços
     if [ -s "$PORTS_FILE" ]; then
         while read -r port; do
             del_proxy_port $port
         done < "$PORTS_FILE"
     fi
-
-    # Remover binário, arquivos e diretórios
+	
+	# Remover binário, arquivos e diretórios
     sudo rm -rf /opt/rustyproxy
     sudo rm -f "$PORTS_FILE"
 
-    echo "[SUCESSO] RustyProxy desinstalado com sucesso."
-}
+    echo "RUSTY PROXY DESISTALADO COM SUCESSO."
 
 # Função para exibir o menu formatado
 show_menu() {
     clear
-    tput setaf 4; echo "--------------------------------------------------------------"
-    tput setab 4; tput bold; tput setaf 7; echo "                   ⚒ RUSTY PROXY MANAGER ⚒                   "
-    tput sgr0; tput setaf 4; echo "--------------------------------------------------------------"
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+    echo -e "\E[44;1;37m                   ⚒ RUSTY PROXY MANAGER ⚒                   \E[0m"
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     
+    # Verifica se há portas ativas
     if [ ! -s "$PORTS_FILE" ]; then
-        printf " PORTAS ATIVAS: %-34s\n" "NENHUMA"
+        printf " PORTA ATIVA(s): %-34s\n" "NENHUMA"
     else
-        printf " PORTAS:"
+        active_ports=""
         while read -r port; do
-            printf " %-5s" "$port"
+            active_ports+=" $port"
         done < "$PORTS_FILE"
-        echo
+        printf " PORTA(s):%-35s\n" "$active_ports"
     fi
 
-    tput setaf 4; echo "--------------------------------------------------------------"
-    tput setaf 1; echo "[01]"; tput setaf 3; echo "ABRIR PORTAS"
-    tput setaf 1; echo "[02]"; tput setaf 3; echo "FECHAR PORTAS"
-    tput setaf 1; echo "[03]"; tput setaf 3; echo "DESINSTALAR RUSTYPROXY"
-    tput setaf 1; echo "[00]"; tput setaf 3; echo "SAIR"
-    tput setaf 4; echo "--------------------------------------------------------------"
-    tput sgr0
-    read -p "  O QUE DESEJA FAZER ?: " option
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+    echo -e "\033[1;31m[\033[1;36m01\033[1;31m] \033[1;34m◉ \033[1;33mABRIR PORTAS \033[1;31m
+[\033[1;36m02\033[1;31m] \033[1;34m◉ \033[1;33mFECHAR PORTAS \033[1;31m
+[\033[1;36m03\033[1;31m] \033[1;34m◉ \033[1;33mDESINSTALAR RUSTYPROXY \033[1;31m
+[\033[1;36m00\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mVOLTAR AO MENU \033[1;31m"
+    echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+    echo
+  read -p "  O QUE DESEJA FAZER ?: " option
 
     case $option in
         1)
-            clear
+		    clear
             read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "[ERRO] DIGITE UMA PORTA VÁLIDA."
+                echo "DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
             done
             read -p "DIGITE O STATUS DE CONEXÃO (DEIXE VAZIO PARA PADRÃO): " status
             add_proxy_port $port "$status"
-            read -p "Pressione qualquer tecla para voltar ao menu..." dummy
+			clear
+            read -p "◉ PORTA ATIVADA COM SUCESSO. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         2)
-            clear
+		    clear
             read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "[ERRO] DIGITE UMA PORTA VÁLIDA."
+                echo "DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
-            done
+		done
             del_proxy_port $port
-            read -p "Pressione qualquer tecla para voltar ao menu..." dummy
+	    clear
+            read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
-        3)
-            clear
+		3)
+          clear
             uninstall_rustyproxy
-            read -p "Pressione qualquer tecla para sair..." dummy
-            exit 0
-            ;;
+            read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
+            exit 0		
         0)
             exit 0
             ;;
         *)
-            echo "[ERRO] OPÇÃO INVÁLIDA."
-            read -p "Pressione qualquer tecla para voltar ao menu..." dummy
+            echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
+            read -n 1 dummy
             ;;
     esac
 }
+
+
 
 # Verificar se o arquivo de portas existe, caso contrário, criar
 if [ ! -f "$PORTS_FILE" ]; then
