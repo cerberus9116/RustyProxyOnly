@@ -91,6 +91,7 @@ uninstall_rustyproxy() {
 
     echo -e "\033[31mRUSTY PROXY DESINSTALADO COM SUCESSO."
     sleep 2
+    clear
 }
 
 # Função para exibir o menu formatado
