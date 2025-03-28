@@ -27,7 +27,7 @@ echo -e "\033[0;34m           ╦═╗╦ ╦╔═╗╔╦╗╦ ╦  ╔═�
 echo -e "\033[0;37m           ╠╦╝║ ║╚═╗ ║ ╚╦╝  ╠═╝╠╦╝║ ║╔╩╦╝╚╦╝                          "
 echo -e "\033[0;34m           ╩╚═╚═╝╚═╝ ╩  ╩   ╩  ╩╚═╚═╝╩ ╚═ ╩  \033[0;37m2025           "
     echo -e " "
-    echo -e "\033[31m              DEV:@𝗨𝗟𝗘𝗞𝗕𝗥  ED.:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇 \033[0m              "
+    RED=$(tput setaf 1)            DEV:@𝗨𝗟𝗘𝗞𝗕𝗥  ED.:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇 \033[0m              
     echo -e " "
     show_progress "ATUALIZANDO REPOSITÓRIO..."
     export DEBIAN_FRONTEND=noninteractive
@@ -106,25 +106,25 @@ echo -e "\033[0;34m           ╩╚═╚═╝╚═╝ ╩  ╩   ╩  ╩╚
     mv ./target/release/RustyProxy /opt/rustyproxy/proxy
     increment_step
 
-    #Configuração de permissões
+    # ---->>>> Configuração de permissões
     show_progress "CONFIGURANDO PERMISSÕES..."
     chmod +x /opt/rustyproxy/proxy
     chmod +x /opt/rustyproxy/menu
     ln -sf /opt/rustyproxy/menu /usr/local/bin/rustyproxy
     increment_step
 
-    #Limpeza
+    # ---->>>> Limpeza
     show_progress "LIMPANDO DIRETÓRIOS TEMPORÁRIOS, AGUARDE..."
     cd /root/
     rm -rf /root/RustyProxyOnly/
     increment_step
 
-    #Instalação finalizada :)
+    # ---->>>> Instalação finalizada :)
 clear
 echo -e " "
-$ tput setaf 7; echo COR BRANCA; tput sgr0--------------------------------------------------------------
-$ tput setaf 4; tput setab 7 ; echo COR AZUL; tput sgr0            INSTALAÇÃO FINALIZADA COM SUCESSO                 
-$ tput setaf 7; echo COR BRANCA; tput sgr0--------------------------------------------------------------
+echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
+echo -e "\E[44;1;37m            INSTALAÇÃO FINALIZADA COM SUCESSO                 \E[0m"
+echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
 sleep 3
 clear
 echo -e " "
