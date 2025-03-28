@@ -56,7 +56,7 @@ WantedBy=multi-user.target"
 
     # Salvar a porta no arquivo
     echo $port >> "$PORTS_FILE"
-    echo "Porta $port aberta com sucesso."
+    echo "Porta $port ABERTA COM SUCESSO."
 }
 
 # Função para fechar uma porta de proxy
@@ -70,7 +70,7 @@ del_proxy_port() {
 
     # Remover a porta do arquivo
     sed -i "/^$port$/d" "$PORTS_FILE"
-    echo "Porta $port fechada com sucesso."
+    echo "Porta $port FECHADA COM SUCESSO."
 }
 
 # Função para exibir o menu formatado
@@ -107,7 +107,7 @@ show_menu() {
                 echo "DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
             done
-            read -p "DIGITE O STATUS DE CONEXAO (deixe vazio para o padrão): " status
+            read -p "DIGITE O STATUS DE CONEXÃO (DEIXE VAZIO PARA PADRÃO): " status
             add_proxy_port $port "$status"
 			clear
             read -p "◉ PORTA ATIVADA COM SUCESSO. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
@@ -120,7 +120,7 @@ show_menu() {
                 read -p "DIGITE A PORTA: " port
 			done
             del_proxy_port $port
-            read -p "> PORTA DESATIVADA. PRESSIONE QUALLQUER TC PARA VOLTAR AO MENU." dummy
+            read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         0)
             exit 0
