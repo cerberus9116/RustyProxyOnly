@@ -23,12 +23,11 @@ if [ "$EUID" -ne 0 ]; then
 else
     clear
     echo ""
-echo -e "\033[34m      88""Yb 88   88 .dP"Y8 888888 Yb  dP     88""Yb 88""Yb  dP"Yb  Yb  dP Yb  dP                     \033[0m"
-echo -e "\033[37m      88__dP 88   88 `Ybo."   88    YbdP      88__dP 88__dP dP   Yb  YbdP   YbdP                      \033[0m"
-echo -e "\033[34m      88"Yb  Y8   8P o.`Y8b   88     8P       88"""  88"Yb  Yb   dP  dPYb    8P                       \033[0m"
-echo -e "\033[37m      88  Yb `YbodP' 8bodP'   88    dP        88     88  Yb  YbodP  dP  Yb  dP                        \033[0m"
+echo -e "\033[0;34m     ╦═╗╦ ╦╔═╗╔╦╗╦ ╦  ╔═╗╦═╗╔═╗═╗ ╦╦ ╦                          "
+echo -e "\033[0;37m     ╠╦╝║ ║╚═╗ ║ ╚╦╝  ╠═╝╠╦╝║ ║╔╩╦╝╚╦╝                          "
+echo -e "\033[0;34m     ╩╚═╚═╝╚═╝ ╩  ╩   ╩  ╩╚═╚═╝╩ ╚═ ╩                           "
     echo -e " "
-    echo -e "\033[31m                 DEV:@𝗨𝗟𝗘𝗞𝗕𝗥   EDIÇÃO:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇 \033[0m                                            \033[0m"
+    echo -e "\033[31m          DEV:@𝗨𝗟𝗘𝗞𝗕𝗥   EDIÇÃO:@𝐉𝐄𝐅𝐅𝐒𝐒𝐇 \033[0m              "
     echo -e " "
     show_progress "ATUALIZANDO REPOSITÓRIO..."
     export DEBIAN_FRONTEND=noninteractive
