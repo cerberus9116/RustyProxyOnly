@@ -127,4 +127,5 @@ echo -e "\E[44;1;37m            INSTALAÇÃO FINALIZADA COM SUCESSO             
 echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
 echo -e " "
 echo -e "\033[1;31m \033[1;33mCOMANDO PARA ACESSAR O MENU: \033[1;32mrustyproxy\033[0m"
+echo -e " "
 fi
