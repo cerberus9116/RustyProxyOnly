@@ -120,41 +120,38 @@ show_menu() {
 
     case $option in
         1)
-		    clear
+            clear
             read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "DIGITE UMA PORTA VÁLIDA."
+                echo "[ERRO] DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
             done
             read -p "DIGITE O STATUS DE CONEXÃO (DEIXE VAZIO PARA PADRÃO): " status
             add_proxy_port $port "$status"
-			clear
-            read -p "◉ PORTA ATIVADA COM SUCESSO. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
+           read -p "◉ PORTA ATIVADA COM SUCESSO. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
         2)
-		    clear
+            clear
             read -p "DIGITE A PORTA: " port
             while ! [[ $port =~ ^[0-9]+$ ]]; do
-                echo "DIGITE UMA PORTA VÁLIDA."
+                echo "[ERRO] DIGITE UMA PORTA VÁLIDA."
                 read -p "DIGITE A PORTA: " port
-		done
+            done
             del_proxy_port $port
-	    clear
             read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
             ;;
-	3)
-           clear
-           uninstall_rustyproxy
-	   clear
-           read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
-	    exit 0
-           ;;
+        3)
+            clear
+            uninstall_rustyproxy
+            read -p "◉ PRESSIONE QUALQUER TC PARA SAIR." dummy
+            exit 0
+            ;;
         0)
             exit 0
             ;;
         *)
-            echo "OPÇÃO INVÁLIDA.´PRESSIONE QUALQUER TC PARA VOLTAR AO MENU. inválida."
-            read -n 1 dummy
+            echo "[ERRO] OPÇÃO INVÁLIDA."
+            read -p "PRESSIONE QUALQUER TC PARA VOLTAR AO MENU...." dummy
             ;;
     esac
 }
