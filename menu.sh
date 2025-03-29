@@ -145,6 +145,7 @@ show_menu() {
                 read -p "DIGITE A PORTA: " port
 		done
             del_proxy_port $port
+	    clear
             read -p "◉ PORTA DESATIVADA. PRESSIONE QUALQUER TC PARA VOLTAR AO MENU." dummy
 	    clear
             ;;
