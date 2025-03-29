@@ -71,6 +71,8 @@ del_proxy_port() {
     # Remover a porta do arquivo
     sed -i "/^$port$/d" "$PORTS_FILE"
     echo "Porta $port FECHADA COM SUCESSO."
+    sleep 3
+    clear
 }
 
 # Função para desinstalar o RustyProxy
@@ -118,7 +120,7 @@ show_menu() {
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo -e "\033[1;31m[\033[1;36m01\033[1;31m] \033[1;34m◉ \033[1;33mABRIR PORTAS \033[1;31m
 [\033[1;36m02\033[1;31m] \033[1;34m◉ \033[1;33mFECHAR PORTAS \033[1;31m
-[\033[1;36m03\033[1;31m] \033[1;34m◉ \033[1;33mDESINSTALAR RUSTYPROXY \033[1;31m
+[\033[1;36m03\033[1;31m] \033[1;34m◉ \033[1;33mDESINSTALAR RUSTY PROXY \033[1;31m
 [\033[1;36m00\033[1;31m] \033[1;37m\033[1;34m◉ \033[1;33mSAIR DO MENU \033[1;31m"
     echo -e "\033[0;34m--------------------------------------------------------------\033[0m"
     echo
